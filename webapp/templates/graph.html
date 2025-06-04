@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Exchange Graph</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Exchange Rate Graph</h1>
+    <form method="post">
+        <label>Base: <input name="base" value="USD"></label><br>
+        <label>Target: <input name="target" value="EUR"></label><br>
+        <button type="submit">Show</button>
+    </form>
+    <canvas id="chart" width="400" height="200"></canvas>
+    <script>
+    const labels = {{ labels|tojson }};
+    const data = {{ rates|tojson }};
+    if(labels.length > 0){
+        new Chart(document.getElementById('chart').getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{ label: 'Rate', data: data, fill: false, borderColor: 'rgb(75, 192, 192)' }]
+            }
+        });
+    }
+    </script>
+    <p><a href="/">Back</a></p>
+</body>
+</html>
